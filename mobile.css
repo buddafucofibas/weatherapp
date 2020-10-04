@@ -1,0 +1,343 @@
+:root {
+  --light: #f7fff7;
+  --dark: #343434;
+  --primary: #2f3061;
+  --secondary: #ffe66d;
+  --tertiary: #6ca6c1;
+}
+
+html {
+  box-sizing: border-box;
+  color: var(--light);
+  font-family: sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  padding-top: 48.5px;
+}
+
+/* Utility classes */
+
+.container {
+  max-width: 1100px;
+  padding: 0.5rem 1rem;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* header styling */
+header {
+  background: var(--primary);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+h1 > a > img {
+  width: 25px;
+}
+
+.burger_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.burger {
+  width: 20px;
+  height: 2px;
+  border-radius: 1px;
+  background-color: var(--light);
+  position: relative;
+}
+
+.burger:before,
+.burger:after {
+  content: '';
+  background-color: var(--light);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+.burger:before {
+  top: 5px;
+}
+
+.burger:after {
+  top: -5px;
+}
+
+/**************** Primary Display ***************/
+
+.current_location {
+  z-index: 1;
+}
+
+.display {
+  height: 40vh;
+  background: no-repeat center/cover url('https://source.unsplash.com/780x520/?weather');
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 0;
+}
+
+.display:after {
+  content: '';
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: black;
+  opacity: 0.25;
+}
+
+.main_search {
+  z-index: 1;
+  background-color: #f7f7f7;
+  width: 80vw;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  border-radius: 50px;
+  margin-bottom: 10px;
+}
+
+.main_search i {
+  color: var(--dark);
+  margin-right: 10px;
+}
+
+.main_search input {
+  background: #f7f7f7;
+  border: none;
+  width: 80%;
+  font-size: 0.9rem;
+}
+
+.main_search input:focus {
+  outline: none;
+}
+
+/*********** weather **************/
+/* weather card */
+
+.weather_wrapper {
+  background-color: #f7f7f7;
+  height: 35vh;
+  padding: 1rem;
+}
+
+.weather {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-rows: repeat(7, 1fr);
+  border-radius: 5px;
+  padding: 0 1rem;
+  color: var(--dark);
+  gap: 5px;
+}
+
+.weather_card {
+  grid-row: span 4;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr 3fr 3fr;
+  position: relative;
+}
+
+.weather_card:after {
+  content: '';
+  position: absolute;
+  height: 1px;
+  width: 100%;
+  background: var(--dark);
+  bottom: -5px;
+  opacity: 0.1;
+}
+
+.weather_card > div {
+  align-self: center;
+  padding: 0 1rem;
+}
+
+.weather_desc p {
+  text-align: center;
+}
+
+.weather_icon > img {
+  width: 50%;
+  height: auto;
+  object-fit: contain;
+  margin: auto;
+  display: block;
+}
+
+.date_time {
+  grid-column: span 2;
+  text-align: center;
+  margin-bottom: 5px;
+}
+.weather_card > div.temp {
+  text-align: center;
+  font-size: 3rem;
+  padding-top: 1rem;
+  font-weight: 100;
+}
+
+.real {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #c4c4c4;
+}
+
+/* Hourly */
+.twelve_hours {
+  grid-row: span 3;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  display: flex;
+  overflow-x: scroll;
+}
+
+.hour {
+  padding: 1rem 0;
+  font-size: 0.8rem;
+  margin: 0 15px;
+  min-width: 50px;
+}
+
+.hour div {
+  text-align: center;
+}
+.hour_icon {
+  width: 20px;
+  margin: auto;
+}
+
+.hour_sum {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.hour_text {
+  text-align: center;
+  margin-bottom: 5px;
+  font-size: 0.6rem;
+}
+
+.hour_temp {
+  font-size: 0.5rem;
+}
+
+.precip {
+  width: 7px;
+  margin-right: 5px;
+}
+.precip + span {
+  font-size: 0.5rem;
+}
+
+/************ News ***************/
+
+.news {
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  color: var(--light);
+  background-color: var(--light);
+  grid-gap: 10px;
+  padding: 1rem;
+}
+
+.news a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.news_card {
+  background-color: var(--dark);
+  border-radius: 5px;
+}
+
+.news_img {
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+.news_img img {
+  border-radius: 5px;
+}
+
+.news_title {
+  padding: 0 1rem;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.news_title h2 {
+  font-size: 1.2rem;
+  font-weight: normal;
+  line-height: 1.1;
+  color: #fff;
+}
+
+.news_title:after {
+  content: '';
+  height: 1px;
+  width: 80%;
+  position: absolute;
+  bottom: -10px;
+  background-color: var(--secondary);
+  opacity: 0.8;
+}
+
+.news_subtitle {
+  padding: 0 1rem;
+  font: 1.1rem/1.1 sans-serif;
+  color: #d5d5d5;
+  padding-bottom: 2rem;
+}
+.news_img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Test classes */
+
+.white {
+  background-color: #f7f7f7;
+}
+
+.red {
+  background-color: red;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.blue {
+  background-color: blue;
+}

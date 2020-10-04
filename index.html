@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="description"
+      content="Weather app built from pure HTML, CSS and Javascript that uses Accu Weather API for data"
+    />
+    <meta name="author" content="dorian edwards" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen and (min-width: 481px)" href="style.css" />
+    <link rel="stylesheet" media="screen and (max-width: 480px)" href="mobile.css" />
+    <script
+      src="https://kit.fontawesome.com/388931a27a.js"
+      crossorigin="anonymous"
+      integrity="sha384-tCIa9x35rFwAnPYwDCoqImEiB9Ai31jfzeslK4Q53KZAXSFi24Px912eIpefo9Bj"
+    ></script>
+    <script type="text/javascript" src="script.js" defer></script>
+    <title>Weather</title>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1>
+          <a href="#"><img src="favicon.ico" alt="a smiley cloud!" /></a>
+        </h1>
+        <div class="burger_wrapper">
+          <div class="burger"></div>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="display">
+        <div class="main_search">
+          <i class="fas fa-search"></i>
+          <input type="text" id="search" placeholder="Search city and state or zip..." />
+        </div>
+        <!-- ** Replace w/user's location -->
+        <div class="current_location">
+          <p>Columbia, MD</p>
+        </div>
+      </div>
+      <!-- I'm thinking this is where I'll put the current weather, it will include weather now, tonight, and at the bottom have a scroll bar for the next 12 hours -->
+      <div class="weather_wrapper">
+        <div class="weather">
+          <div class="weather_card">
+            <div class="date_time"><span class="date"></span> <span class="time"></span></div>
+            <div class="weather_icon">
+              <img src="" alt="" />
+            </div>
+            <div class="temp"></div>
+            <div class="weather_desc"><p></p></div>
+            <div class="real"></div>
+          </div>
+          <!-- <div class="current_details"></div> -->
+          <div class="twelve_hours"></div>
+        </div>
+      </div>
+      <div class="news_wrapper">
+        <div class="news"></div>
+      </div>
+    </main>
+  </body>
+</html>
