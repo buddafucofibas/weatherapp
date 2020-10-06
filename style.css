@@ -228,6 +228,20 @@ h1 > a > img {
   margin-right: 10px;
 }
 
+.weather_details {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  grid-row: span 4;
+  font: 1.1rem/1.5 sans-serif;
+}
+
+.wind_direction img {
+  width: 25px;
+  transform: rotate(90deg);
+  transition: transform 500ms ease-in-out;
+}
+
 /* Hourly */
 .twelve_hours {
   grid-row: span 3;

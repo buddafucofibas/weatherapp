@@ -16,6 +16,12 @@ const currentWeatherIcon = label('.weather_icon img');
 const currentWeatherDescription = label('.weather_desc p');
 const currentTemp = label('.temp');
 const currentRealTemp = label('.real');
+const relativeHumidity = label('.humidity span');
+const visibility = label('.visibility span');
+const pointer = label('.pointer img');
+const windDirection = label('.direction');
+const windSpeed = label('.speed');
+const uv = label('.uv_index span');
 let currentCity, city, state, key;
 
 // displays date and time when DOM loads
@@ -80,6 +86,16 @@ async function getCurrentWeather() {
   currentWeatherDescription.textContent = currentConditions.WeatherText;
   currentTemp.innerHTML = `${currentConditions.Temperature.Imperial.Value}&degF`;
   currentRealTemp.innerHTML = `Feels like ${currentConditions.RealFeelTemperature.Imperial.Value}&degF`;
+  relativeHumidity.textContent = `${currentConditions.RelativeHumidity}%`;
+  visibility.textContent = `${currentConditions.Visibility.Imperial.Value}`;
+  windDirection.textContent = `${currentConditions.Wind.Direction.Localized}`;
+  windSpeed.textContent = `${currentConditions.Wind.Speed.Imperial.Value} mi/h`;
+  uv.textContent = `${currentConditions.UVIndex}: ${currentConditions.UVIndexText}`;
+  pointer.setAttribute(
+    `style`,
+    `transform: rotate(${currentConditions.Wind.Direction.Degrees}deg)`
+  );
+  pointer.setAttribute(`alt`, `Compass pointing ${currentConditions.Wind.Direction.Localized}`);
   // update time that information was received.
   displayTime();
 }
