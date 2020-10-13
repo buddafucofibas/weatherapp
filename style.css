@@ -139,46 +139,105 @@ h1 > a > img {
 .main_search input:focus {
   outline: none;
 }
+/* ****** weather view */
 
-/*********** weather **************/
+.weather_view {
+  text-align: center;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+}
+
+.weather_view button {
+  margin: 0 1rem;
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: var(--primary);
+  font: 300 1.2rem/1.2 sans-serif;
+  color: var(--light);
+  border: none;
+}
+
+.weather_view button:hover {
+  cursor: pointer;
+  color: var(--secondary);
+  transition: color 200ms ease-in-out;
+}
+
+.weather_view button.active {
+  color: var(--secondary);
+}
+
+@media screen and (max-width: 768px) {
+  .weather_view {
+    display: none;
+  }
+}
+/*********** weather *****************************************/
 /* weather card */
 
 .weather_wrapper {
-  background-color: #f7f7f7;
-  height: 40vh;
+  background-color: var(--light);
+  /*   height: 40vh; */
   padding: 1rem;
   max-width: 1100px;
   margin: auto;
 }
 
-.weather {
+.weather.current,
+.weather.five_day {
   height: 100%;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 1fr);
   border-radius: 5px;
   padding: 0 1rem;
   color: var(--dark);
   gap: 5px;
+  position: relative;
+}
+
+.weather.five_day .weather_card,
+.weather.five_day .weather_details,
+.weather.five_day .twelve_hours {
+  display: none;
+}
+
+.weather.current .day_card {
+  display: none;
+}
+
+.weather.five_day {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 2rem 1rem;
+}
+
+.weather::before {
+  content: '';
+  position: absolute;
+  height: 1px;
+  width: 100%;
+  background: var(--dark);
+  top: -20px;
+  opacity: 0.1;
+}
+
+.weather::after {
+  content: '';
+  position: absolute;
+  height: 1px;
+  width: 100%;
+  background: var(--dark);
+  bottom: 0;
+  opacity: 0.1;
 }
 
 .weather_card {
   grid-row: span 4;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-
-  position: relative;
-}
-
-.weather_card:after {
-  content: '';
-  position: absolute;
-  height: 1px;
-  width: 100%;
-  background: var(--dark);
-  bottom: -5px;
-  opacity: 0.1;
 }
 
 .weather_card > div {
@@ -244,7 +303,7 @@ h1 > a > img {
 
 /* Hourly */
 .twelve_hours {
-  grid-row: span 3;
+  grid-row: span 2;
   grid-column: span 2;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -292,6 +351,76 @@ h1 > a > img {
   font-size: 0.5rem;
 }
 
+/* 5 day styling */
+.day_card {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  width: 175px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 1rem 0;
+  /* transform: rotate(-1deg); */
+  box-shadow: 10px 10px 5px var(--tertiary);
+  border: 1px solid var(--secondary);
+  grid-gap: 5px;
+}
+
+.day_card .date {
+  grid-column: span 2;
+  /* grid-row: 1; */
+  text-align: center;
+}
+
+.day_card .icon {
+  grid-row: 2 / span 5;
+  grid-column: 1;
+  text-align: center;
+  font-size: 0.6vw;
+}
+
+.day_card .icon img {
+  width: 50px;
+  margin: 10px 0;
+}
+
+.day_card .high_low {
+  grid-column: 2;
+  grid-row: 2 / span 5;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 200;
+  padding-top: 1rem;
+}
+
+.high_low > div {
+  position: relative;
+  bottom: 10px;
+  font-size: 2rem;
+}
+
+.day_card .low {
+  font-size: 1.1rem;
+  color: rgba(52, 52, 52, 0.8);
+  position: relative;
+  top: 10px;
+}
+
+.day_card .day_precip {
+  grid-column: 1 / span 2;
+  grid-row: 7 / span 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  /* margin-right: 5px; */
+}
+
+.day_card .day_precip > * {
+  margin: 2.5px;
+}
 /************ News ***************/
 
 .news {

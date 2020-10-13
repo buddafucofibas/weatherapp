@@ -214,6 +214,14 @@ h1 > a > img {
   display: none;
 }
 
+.weather.current .day_card {
+  display: none;
+}
+
+.weather_view {
+  display: none;
+}
+
 /* Hourly */
 .twelve_hours {
   grid-row: span 3;

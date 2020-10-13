@@ -4,8 +4,16 @@
 // utility function to make DOM manipulation a little faster
 const label = (text) => document.querySelector(text);
 const make = (element) => document.createElement(element);
+const makeDiv = (className) => {
+  let e = document.createElement('div');
+  e.classList.add(className);
+  return e;
+};
 
 // grabbing DOM elements
+const currentButton = label('#current_weather');
+const fiveDayButton = label('#five_day_weather');
+const weather = document.querySelector('.weather');
 const date = label('.date');
 const time = label('.time');
 const search = label('#search');
@@ -29,6 +37,20 @@ displayDT();
 
 search.addEventListener('keyup', getLocation);
 
+currentButton.addEventListener('click', function () {
+  this.classList.add('active');
+  fiveDayButton.classList.remove('active');
+  weather.classList.add('current');
+  weather.classList.remove('five_day');
+});
+
+fiveDayButton.addEventListener('click', function () {
+  this.classList.add('active');
+  currentButton.classList.remove('active');
+  weather.classList.add('five_day');
+  weather.classList.remove('current');
+});
+
 (async () => {
   resetDisplays();
   const raw = await fetch(
@@ -43,11 +65,13 @@ search.addEventListener('keyup', getLocation);
   console.log(key);
 
   getCurrentWeather();
+  getFiveDay();
   resetDisplays();
   getHourly();
   getNews();
 })();
 
+window.onresize = toggleView;
 // gets location key and 12 hour forecast for user entered city or zipcode.
 async function getLocation(event) {
   if ((event.keyCode === 13) & (search.value !== '')) {
@@ -177,6 +201,18 @@ async function getHourly() {
   });
 }
 
+// Gets forecast for the next 5 days
+async function getFiveDay() {
+  const raw = await fetch(
+    'http://dataservice.accuweather.com/forecasts/v1/daily/5day/329306?apikey=***REMOVED***&language=en-us&details=true'
+  );
+  const parsed = await raw.json();
+  // console.log(parsed);
+
+  parsed.DailyForecasts.forEach((day) => {
+    makeWeatherCard(day);
+  });
+}
 // grabs the first 9 weather related news based on location of city search & makes 'news cards'
 async function getNews() {
   let raw = await fetch(
@@ -190,7 +226,55 @@ async function getNews() {
   }
 }
 
-// make the adds the newscard elements
+// takes as a parameter a day forecast object and creates a daily weather card and adds it to
+// the weather display
+
+function makeWeatherCard(forecast) {
+  const dayCard = makeDiv('day_card');
+  const dateDiv = makeDiv('date');
+  const icon = makeDiv('icon');
+  const iconImg = make('img');
+  const desc = makeDiv('desc');
+  const highLow = makeDiv('high_low');
+  const low = document.createElement('span');
+  low.classList.add('low');
+  const dayPrecip = makeDiv('day_precip');
+  const precipIcon = document.createElement('img');
+  const precipChances = document.createElement('span');
+
+  const date = getDate(forecast.Date);
+  dateDiv.textContent = date;
+  dayCard.append(dateDiv);
+  iconImg.setAttribute(
+    'src',
+    `https://www.accuweather.com/images/weathericons/${forecast.Day.Icon}.svg`
+  );
+  iconImg.setAttribute('alt', `${forecast.Day.IconPhrase} icon`);
+  desc.textContent = forecast.Day.IconPhrase;
+  icon.append(iconImg);
+  icon.append(desc);
+  dayCard.append(icon);
+
+  highLow.innerHTML = `<div>${forecast.Temperature.Maximum.Value}</div>/`;
+  low.textContent = forecast.Temperature.Minimum.Value;
+  highLow.append(low);
+  dayCard.append(highLow);
+
+  precipIcon.setAttribute(
+    'src',
+    'https://www.accuweather.com/images/components/weather/daily-forecast-card-nfl/drop-icon.svg'
+  );
+  precipIcon.setAttribute('alt', 'raindrop icon indicating possibility of precipitation');
+  precipChances.textContent = `${forecast.Day.PrecipitationProbability}%`;
+
+  dayPrecip.append(precipIcon);
+  dayPrecip.append(precipChances);
+  dayCard.append(dayPrecip);
+
+  weather.append(dayCard);
+}
+
+// make & add the newscard elements
 function makeNewsCards(article) {
   const articleURL = article.url;
   const imageURL = article.urlToImage;
@@ -274,4 +358,21 @@ function displayTime() {
 function resetDisplays() {
   twelveHours.innerHTML = '';
   news.innerHTML = '';
+}
+
+// gets month and day
+function getDate(date) {
+  date = date.split('T')[0];
+  let [, month, day] = date.split('-');
+  return `${month}/${day}`;
+}
+
+// toggles view to current
+function toggleView() {
+  if (window.innerWidth <= 768) {
+    currentButton.classList.add('active');
+    fiveDayButton.classList.remove('active');
+    weather.classList.add('current');
+    weather.classList.remove('five_day');
+  }
 }
