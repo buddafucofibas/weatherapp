@@ -11,30 +11,21 @@ const makeDiv = (className) => {
 };
 
 // grabbing DOM elements
+const nav = label('nav');
+const html = label('html');
+const burger = label('.burger_wrapper');
 const currentButton = label('#current_weather');
 const fiveDayButton = label('#five_day_weather');
 const weather = document.querySelector('.weather');
 const date = label('.date');
 const time = label('.time');
 const search = label('#search');
-const twelveHours = document.querySelector('.twelve_hours');
 const news = label('.news');
 const cityDisplayMain = label('.current_location p');
-const currentWeatherIcon = label('.weather_icon img');
-const currentWeatherDescription = label('.weather_desc p');
-const currentTemp = label('.temp');
-const currentRealTemp = label('.real');
-const relativeHumidity = label('.humidity span');
-const visibility = label('.visibility span');
-const pointer = label('.pointer img');
-const windDirection = label('.direction');
-const windSpeed = label('.speed');
-const uv = label('.uv_index span');
 let currentCity, city, state, key;
 
-// displays date and time when DOM loads
-displayDT();
 
+burger.addEventListener('click', toggleNav);
 search.addEventListener('keyup', getLocation);
 
 currentButton.addEventListener('click', function () {
@@ -50,6 +41,7 @@ fiveDayButton.addEventListener('click', function () {
   weather.classList.add('five_day');
   weather.classList.remove('current');
 });
+
 
 (async () => {
   resetDisplays();
@@ -90,6 +82,7 @@ async function getLocation(event) {
 
     resetDisplays();
     getCurrentWeather();
+    getFiveDay();
     getHourly();
     getNews();
   }
@@ -102,26 +95,25 @@ async function getCurrentWeather() {
   );
   const parsed = await raw.json();
   const currentConditions = parsed[0];
-  currentWeatherIcon.setAttribute(
-    'src',
-    `https://www.accuweather.com/images/weathericons/${currentConditions.WeatherIcon}.svg`
-  );
-  currentWeatherIcon.setAttribute('alt', `${currentConditions.WeatherText} icon`);
-  currentWeatherDescription.textContent = currentConditions.WeatherText;
-  currentTemp.innerHTML = `${currentConditions.Temperature.Imperial.Value}&degF`;
-  currentRealTemp.innerHTML = `Feels like ${currentConditions.RealFeelTemperature.Imperial.Value}&degF`;
-  relativeHumidity.textContent = `${currentConditions.RelativeHumidity}%`;
-  visibility.textContent = `${currentConditions.Visibility.Imperial.Value}`;
-  windDirection.textContent = `${currentConditions.Wind.Direction.Localized}`;
-  windSpeed.textContent = `${currentConditions.Wind.Speed.Imperial.Value} mi/h`;
-  uv.textContent = `${currentConditions.UVIndex}: ${currentConditions.UVIndexText}`;
-  pointer.setAttribute(
-    `style`,
-    `transform: rotate(${currentConditions.Wind.Direction.Degrees}deg)`
-  );
-  pointer.setAttribute(`alt`, `Compass pointing ${currentConditions.Wind.Direction.Localized}`);
-  // update time that information was received.
-  displayTime();
+  // currentWeatherIcon.setAttribute(
+  //   'src',
+  //   `https://www.accuweather.com/images/weathericons/${currentConditions.WeatherIcon}.svg`
+  // );
+  // currentWeatherIcon.setAttribute('alt', `${currentConditions.WeatherText} icon`);
+  // currentWeatherDescription.textContent = currentConditions.WeatherText;
+  // currentTemp.innerHTML = `${currentConditions.Temperature.Imperial.Value}&degF`;
+  // currentRealTemp.innerHTML = `Feels like ${currentConditions.RealFeelTemperature.Imperial.Value}&degF`;
+  // relativeHumidity.textContent = `${currentConditions.RelativeHumidity}%`;
+  // visibility.textContent = `${currentConditions.Visibility.Imperial.Value}`;
+  // windDirection.textContent = `${currentConditions.Wind.Direction.Localized}`;
+  // windSpeed.textContent = `${currentConditions.Wind.Speed.Imperial.Value} mi/h`;
+  // uv.textContent = `${currentConditions.UVIndex}: ${currentConditions.UVIndexText}`;
+  // pointer.setAttribute(
+  //   `style`,
+  //   `transform: rotate(${currentConditions.Wind.Direction.Degrees}deg)`
+  // );
+  // pointer.setAttribute(`alt`, `Compass pointing ${currentConditions.Wind.Direction.Localized}`);
+  test(currentConditions);
 }
 
 // Gets the hourly forecast for the next twelve hours and creates hour 'cards' displaying a brief look at the upcoming forecast.
@@ -130,6 +122,8 @@ async function getHourly() {
     `http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/${key}?apikey=***REMOVED***&language=en-us`
   );
   const parsed = await raw.json();
+
+  const twelveHours = makeDiv('twelve_hours');
 
   parsed.forEach((e) => {
     const hour = convertTime(e.DateTime);
@@ -199,12 +193,14 @@ async function getHourly() {
 
     twelveHours.append(hourCard);
   });
+
+  weather.append(twelveHours);
 }
 
 // Gets forecast for the next 5 days
 async function getFiveDay() {
   const raw = await fetch(
-    'http://dataservice.accuweather.com/forecasts/v1/daily/5day/329306?apikey=***REMOVED***&language=en-us&details=true'
+    `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}?apikey=***REMOVED***&language=en-us&details=true`
   );
   const parsed = await raw.json();
   // console.log(parsed);
@@ -252,8 +248,8 @@ function makeWeatherCard(forecast) {
   iconImg.setAttribute('alt', `${forecast.Day.IconPhrase} icon`);
   desc.textContent = forecast.Day.IconPhrase;
   icon.append(iconImg);
-  icon.append(desc);
   dayCard.append(icon);
+  dayCard.append(desc);
 
   highLow.innerHTML = `<div>${forecast.Temperature.Maximum.Value}</div>/`;
   low.textContent = forecast.Temperature.Minimum.Value;
@@ -295,6 +291,7 @@ function makeNewsCards(article) {
 
   // create image itself
   let img = make('img');
+  img.setAttribute('crossorigin', 'anonymous');
   img.setAttribute('src', imageURL);
   img.setAttribute(
     'alt',
@@ -341,23 +338,11 @@ function convertTime(timeRaw) {
   return hour < 12 ? `${hour}am` : `${hour - 12}pm`;
 }
 
-// updates date & time
-function displayDT() {
-  let now = new Date();
-  date.textContent = now.toLocaleDateString();
-  time.textContent = now.toLocaleTimeString();
-}
-
-// updates only time
-function displayTime() {
-  let now = new Date();
-  time.textContent = now.toLocaleTimeString();
-}
 
 // clears displays
 function resetDisplays() {
-  twelveHours.innerHTML = '';
   news.innerHTML = '';
+  weather.innerHTML = '';
 }
 
 // gets month and day
@@ -375,4 +360,129 @@ function toggleView() {
     weather.classList.add('current');
     weather.classList.remove('five_day');
   }
+}
+
+function toggleNav(){
+  nav.classList.toggle('active');
+  html.classList.toggle('pause_scroll');
+}
+
+// Test functions and such... a playground that's a little less crowded starts below
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// this should make the weather section on demad instead of grabbing elements like above ...
+async function test(e) {
+  // create & add weather card
+const weatherCard = makeDiv('weather_card');
+weather.append(weatherCard);
+
+// create and add date & time
+const dateTime = makeDiv('date_time')
+const date = make('span');
+date.classList.add('date');
+const time = make('span');
+time.classList.add('time');
+
+let now = new Date();
+  date.textContent = now.toLocaleDateString();
+  time.textContent = now.toLocaleTimeString();
+
+dateTime.append(date);
+dateTime.append(time);
+weatherCard.append(dateTime);
+
+// create and add weather icon
+const weatherIconWrapper = makeDiv('weather_icon');
+const weatherIcon = make('img');
+weatherIconWrapper.append(weatherIcon);
+weatherCard.append(weatherIconWrapper);
+
+// create & add temp, weather description and real feel
+const temp = makeDiv('temp');
+const weatherDescription = makeDiv('weather_desc');
+const realFeel = makeDiv('real');
+
+weatherCard.append(temp);
+weatherCard.append(weatherDescription);
+weatherCard.append(realFeel);
+
+// create and add weather details
+const weatherDetails = makeDiv('weather_details');
+weather.append(weatherDetails);
+
+const humidity = makeDiv('humidity');
+const visibility = makeDiv('visibility');
+
+weatherDetails.append(humidity);
+weatherDetails.append(visibility);
+
+// wind
+const windDirectionWrapper = makeDiv('wind_direction');
+const desc = make('div');
+desc.textConent = 'Wind';
+windDirectionWrapper.append(desc);
+const pointerWrapper = makeDiv('pointer');
+const pointer = make('img');
+pointer.setAttribute('src', "assets/pointer.png");
+pointerWrapper.append(pointer);
+windDirectionWrapper.append(pointerWrapper);
+const dirDesc = make('div');
+const direction = make('span');
+const speed = make('span');
+direction.classList.add('direction');
+speed.classList.add('speed');
+dirDesc.append(direction);
+dirDesc.append(speed);
+windDirectionWrapper.append(dirDesc);
+
+weatherDetails.append(windDirectionWrapper);
+
+// UV
+const uvIndex = makeDiv('uv_index');
+weatherDetails.append(uvIndex);
+
+// fill in weather details using object parameter e
+weatherIcon.setAttribute(
+  'src',
+  `https://www.accuweather.com/images/weathericons/${e.WeatherIcon}.svg`
+);
+weatherIcon.setAttribute('alt', `${e.WeatherText} icon`);
+weatherDescription.innerHTML = `<p>${e.WeatherText}</p>`;
+
+  temp.innerHTML = `${e.Temperature.Imperial.Value}&degF`;
+  realFeel.innerHTML = `Feels like ${e.RealFeelTemperature.Imperial.Value}&degF`;
+  humidity.innerHTML = `Relative humidity: <span>${e.RelativeHumidity}%</span>`;
+  visibility.innerHTML = `Visibility: <span>${e.Visibility.Imperial.Value}</span> mi`;
+  pointer.setAttribute('alt', `Pointer facing ${e.Wind.Direction.Localized}`);
+  direction.textContent = `${e.Wind.Direction.Localized}`;
+  speed.textContent = `${e.Wind.Speed.Imperial.Value} mi/h`;
+  uvIndex.innerHTML = `UV Index: <span>${e.UVIndex} (${e.UVIndexText})</span>`;
+  pointer.setAttribute(
+    `style`,
+    `transform: rotate(${e.Wind.Direction.Degrees}deg)`
+  );
+  pointer.setAttribute(`alt`, `Compass pointing ${e.Wind.Direction.Localized}`);
 }

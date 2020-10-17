@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="description"
+      content="Weather app built from pure HTML, CSS and Javascript that uses Accu Weather API for data"
+    />
+    <meta name="author" content="dorian edwards" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen and (min-width: 481px)" href="style.css" />
+    <link rel="stylesheet" media="screen and (max-width: 480px)" href="mobile.css" />
+    <script
+      src="https://kit.fontawesome.com/388931a27a.js"
+      crossorigin="anonymous"
+      integrity="sha384-tCIa9x35rFwAnPYwDCoqImEiB9Ai31jfzeslK4Q53KZAXSFi24Px912eIpefo9Bj"
+    ></script>
+    <script type="text/javascript" src="script.js" defer></script>
+    <title>Weather</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="container">
+        <h1>
+          <a href="#"><img src="favicon.ico" alt="a smiley cloud!" /></a>
+        </h1>
+        <div class="burger_wrapper">
+          <div class="burger"></div>
+        </div>
+        <nav>
+          <ul>
+            <li><a href='index.html'>home</a></li>
+            <li><a href='about.html' class='current'>about</a></li>
+            <li><a href='contact.html'>contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <div class='blurb'>
+          <p>Hey,</p>
+          <p>I'm note entirely sure why there is an about page on a weatherapp, but I'll use this page to talk a little bit about what this project is meant to showcase.</p>
+          <p>Of course every site that is built is a demonstration of CSS and HTML. This site is fully responsive. This time I to style it for mobile viewing first then desktops. I think this was maybe slightly easier as a smaller layout doesn't look as wonky on a larger screen as the opposite does.</p>
+          <p>In addtion, I got to practice a bit more with collapsible nav menus and animations. I also dug up a neat, and most importantly, simple trick to freeze the background page from scrolling when the nav menu is up by using <code>html {overflow-y: hidden}.</code></p>
+          <p>This was also my first go-round with CSS grid layout which is a little tricky to wrap your head around at times, but extremely powerful. Honestly this made make everything responsive signficantly easier than my previous endeavors.</p>
+          <p>I also got practice creating dynamic html elements and manipulating the DOM using javascript. It was quite a bit of code, more tedious than anything. But I learned to make utility functions to make DOM element creation more efficient. e.g. my use of functions to replace <code>document.querySelector()</code> and <code>document.createElement</code>. Just abstracting these two basic functions into shorter calls reduced my work a ton!</p>
+          <p>On the javascript side of things this was a great way to practice asyncronous javascript using async/await, API calls, and working with <abbr title='Javascript Objection Notation'>JSON</abbr>. There's little to be said about this aspect of the code though because it was relatively straight forward: fetch data, extract data, plug it in. <em>Template literals</em> made this so easy as well; old school string formatting would've been far more clunky and just bleh...</p>
+          <p>Before I push this onto github for good, I'm also going to need to use gitignore to store my API key elsewhere and then wright a proper readme for folks looking to use it. This way I can practice more with github and with documenting my work!</p>
+      </div>
+      <footer class='about'>
+        <a href='https://twitter.com/PharmDTechie' target='_blank'><i class="fab fa-twitter-square fa-2x"></i></a>
+        <a href='https://github.com/buddafucofibas' target='_blank'><i class="fab fa-github-square fa-2x"></i></a>
+        <a href='mailto:de.pharmd2018@gmail.com'><i class="fas fa-envelope-square fa-2x"></i></a>
+      </footer>
+    </main>
+  </body>
+</html>

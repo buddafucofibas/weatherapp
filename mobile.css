@@ -36,6 +36,10 @@ body {
   justify-content: space-between;
 }
 
+.pause_scroll {
+  overflow-y: hidden;
+}
+
 /* header styling */
 header {
   background: var(--primary);
@@ -52,8 +56,14 @@ h1 > a > img {
 
 .burger_wrapper {
   display: flex;
+  position: relative;
   align-items: center;
   justify-content: center;
+  z-index: 1;
+}
+
+.burger_wrapper:hover {
+  cursor: pointer;
 }
 
 .burger {
@@ -79,6 +89,53 @@ h1 > a > img {
 
 .burger:after {
   top: -5px;
+}
+
+nav {
+  display: flex;
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  /* visibility: collapse; */
+  width: 0;
+  opacity: 0;
+  transition: all 250ms ease-in-out;
+}
+
+nav li {
+  list-style: none;
+}
+
+nav.active {
+  /* display: flex;
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem; */
+  /* visibility: visible; */
+  width: 100vw;
+  opacity: 1;
+}
+
+nav ul {
+  height: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-transform: uppercase;
+  align-items: center;
+  font-weight: 200;
 }
 
 /**************** Primary Display ***************/
@@ -224,7 +281,7 @@ h1 > a > img {
 
 /* Hourly */
 .twelve_hours {
-  grid-row: span 3;
+  grid-row: 5 / span 3;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   display: flex;
@@ -271,7 +328,6 @@ h1 > a > img {
 }
 
 /************ News ***************/
-
 .news {
   max-width: 1100px;
   margin: auto;
@@ -280,7 +336,7 @@ h1 > a > img {
   color: var(--light);
   background-color: var(--light);
   grid-gap: 10px;
-  padding: 1rem;
+  padding: 1rem 1rem 2rem 1rem;
 }
 
 .news a {
@@ -352,4 +408,36 @@ h1 > a > img {
 
 .blue {
   background-color: blue;
+}
+
+/* Footer styling */
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+footer {
+  height: 50px;
+  background: var(--dark);
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+/* About page */
+/* .about {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+} */
+
+.blurb {
+  font: 1.2rem/1.5 sans-serif;
+  color: var(--dark);
+  padding: 1rem;
+}
+
+.blurb p {
+  margin-bottom: 10px;
 }

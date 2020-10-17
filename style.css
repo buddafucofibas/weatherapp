@@ -54,6 +54,11 @@ h1 > a > img {
   display: flex;
   align-items: center;
   justify-content: center;
+  display: none;
+}
+
+.burger_wrapper:hover {
+  cursor: pointer;
 }
 
 .burger {
@@ -79,6 +84,22 @@ h1 > a > img {
 
 .burger:after {
   top: -5px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+}
+nav li {
+  list-style: none;
+  display: inline;
+  margin: 0 10px;
+  text-transform: uppercase;
+}
+
+nav li a:hover {
+  color: var(--secondary);
+  transition: color 250ms ease-in-out;
 }
 
 /**************** Primary Display ***************/
@@ -177,8 +198,7 @@ h1 > a > img {
 /* weather card */
 
 .weather_wrapper {
-  background-color: var(--light);
-  /*   height: 40vh; */
+  background: linear-gradient(to right, var(--light) 5%, white 15%, white 80%, var(--light) 95%);
   padding: 1rem;
   max-width: 1100px;
   margin: auto;
@@ -262,6 +282,11 @@ h1 > a > img {
   text-align: center;
   margin-bottom: 5px;
 }
+
+.ddate {
+  margin-right: 10px;
+}
+
 .weather_card > div.temp {
   text-align: center;
   font-size: 3rem;
@@ -287,12 +312,21 @@ h1 > a > img {
   margin-right: 10px;
 }
 
+.weather_desc {
+  margin-bottom: 5px;
+}
+
+.temp,
+.weather_icon {
+  margin-bottom: 10px;
+}
 .weather_details {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: center;
   grid-row: span 4;
   font: 1.1rem/1.5 sans-serif;
+  justify-content: space-evenly;
 }
 
 .wind_direction img {
@@ -300,10 +334,20 @@ h1 > a > img {
   transform: rotate(90deg);
   transition: transform 500ms ease-in-out;
 }
+.pointer {
+  text-align: center;
+}
+.direction {
+  margin-right: 5px;
+}
+
+.direction:after {
+  content: ':';
+}
 
 /* Hourly */
 .twelve_hours {
-  grid-row: span 2;
+  grid-row: 5 / span 2;
   grid-column: span 2;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -373,10 +417,9 @@ h1 > a > img {
 }
 
 .day_card .icon {
-  grid-row: 2 / span 5;
+  grid-row: 2 / span 4;
   grid-column: 1;
   text-align: center;
-  font-size: 0.6vw;
 }
 
 .day_card .icon img {
@@ -386,7 +429,7 @@ h1 > a > img {
 
 .day_card .high_low {
   grid-column: 2;
-  grid-row: 2 / span 5;
+  grid-row: 2 / span 4;
   font-size: 1.5rem;
   display: flex;
   align-items: center;
@@ -395,6 +438,11 @@ h1 > a > img {
   padding-top: 1rem;
 }
 
+.day_card .desc {
+  grid-row: 6;
+  grid-column: span 2;
+  text-align: center;
+}
 .high_low > div {
   position: relative;
   bottom: 10px;
@@ -431,7 +479,7 @@ h1 > a > img {
   color: var(--light);
   background-color: var(--light);
   grid-gap: 10px;
-  padding: 1rem;
+  padding: 1rem 1rem 2rem 1rem;
 }
 
 .news a {
@@ -487,20 +535,35 @@ h1 > a > img {
   height: 100%;
   object-fit: cover;
 }
-/* Test classes */
 
-.white {
-  background-color: #f7f7f7;
+/* Footer styling */
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+footer {
+  height: 50px;
+  background: var(--dark);
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
-.red {
-  background-color: red;
+/* About page */
+.about {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
-.yellow {
-  background-color: yellow;
+.blurb {
+  font: 1.2rem/1.5 sans-serif;
+  color: var(--dark);
+  padding: 1rem;
 }
 
-.blue {
-  background-color: blue;
+.blurb p {
+  margin-bottom: 10px;
 }
