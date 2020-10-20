@@ -16,7 +16,8 @@
       crossorigin="anonymous"
       integrity="sha384-tCIa9x35rFwAnPYwDCoqImEiB9Ai31jfzeslK4Q53KZAXSFi24Px912eIpefo9Bj"
     ></script>
-    <script type="text/javascript" src="script.js" defer></script>
+    <script type="text/javascript" src="nav.js" defer></script>
+    <script type='text/javascript' src='contact.js' defer></script>
     <title>Weather</title>
   </head>
 
@@ -38,11 +39,42 @@
         </nav>
       </div>
     </header>
-    <main>
-        <div class='container'>
-            <form action=''></form>
+    <main class='contact'>
+        <div class='contact_display'>
+            <div class='contact_form'>
+                <div class='title'>
+                    <h1>Contact Me</h1>
+                    <address>
+                        <p>Phone: (800) 555-1234</p>
+                        <p>Email: john.doe@gmail.com</p>
+                        <p>123 Main St<br>Columbia, MD<br>21045</p>
+                    </address>
+                    
+                </div>
+                <form>
+                    <div>
+                        <input type='text' name='first_name' id='first_name' class='user_input'>
+                        <label for='first_name'>First Name</label>
+                    </div>
+                    <div>
+                        <input type='text' name='last_name' id='last_name' class='user_input'>
+                        <label for='name'>Last Name</label>
+                    </div>
+                    <div>
+                        <input type='text' name='subject' id='subject' class='user_input'>
+                        <label for='email'>Subject</label>
+                    </div>
+                    <div>
+                        <textarea name='message' id='message' class='user_input'></textarea>
+                        <label for='message'>Message</label>
+                    </div>
+                    
+                        <button class='form_submit'>Submit</button>
+                    
+                </form>
+            </div>
         </div>
-      <footer class='about'>
+      <footer class='contact'>
         <a href='https://twitter.com/PharmDTechie' target='_blank'><i class="fab fa-twitter-square fa-2x"></i></a>
         <a href='https://github.com/buddafucofibas' target='_blank'><i class="fab fa-github-square fa-2x"></i></a>
         <a href='mailto:de.pharmd2018@gmail.com'><i class="fas fa-envelope-square fa-2x"></i></a>

@@ -102,7 +102,7 @@ nav {
   justify-content: center;
   align-items: center;
   font-size: 2rem;
-  /* visibility: collapse; */
+  visibility: collapse;
   width: 0;
   opacity: 0;
   transition: all 250ms ease-in-out;
@@ -110,6 +110,10 @@ nav {
 
 nav li {
   list-style: none;
+}
+
+nav li a:hover {
+  color: var(--secondary);
 }
 
 nav.active {
@@ -126,6 +130,7 @@ nav.active {
   /* visibility: visible; */
   width: 100vw;
   opacity: 1;
+  visibility: visible;
 }
 
 nav ul {
@@ -424,13 +429,13 @@ footer {
   justify-content: space-evenly;
 }
 
-/* About page */
-/* .about {
+footer.contact {
   position: fixed;
+  width: 100%;
   bottom: 0;
-  left: 0;
-  right: 0;
-} */
+}
+
+/* About page */
 
 .blurb {
   font: 1.2rem/1.5 sans-serif;
@@ -440,4 +445,98 @@ footer {
 
 .blurb p {
   margin-bottom: 10px;
+}
+
+/* Contact styling */
+
+.contact_form {
+  height: calc(100vh - 98.5px);
+  color: var(--dark);
+  display: flex;
+  flex-direction: column;
+  padding: 3em 1em 1em 1em;
+}
+
+.contact_form .title {
+  margin-bottom: 50px;
+}
+
+.contact_form h1 {
+  margin-bottom: 15px;
+}
+
+.contact_form p {
+  line-height: 1.2;
+}
+
+form > div {
+  margin-bottom: 30px;
+}
+
+label {
+  position: absolute;
+  left: 1em;
+}
+
+input {
+  height: 25px;
+  width: 80%;
+}
+
+textarea {
+  width: 80%;
+  resize: none;
+  position: relative;
+  top: 20px;
+}
+
+input,
+textarea {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(52, 52, 52, 0.1);
+  padding: 0;
+  font: 1em/1 sans-serif;
+  height: 25px;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+}
+
+label {
+  transition: all 150ms ease-out;
+}
+
+input:focus + label,
+input.filled + label,
+textarea:focus + label,
+textarea.filled + label {
+  transform: translateY(-15px);
+  font-size: 0.8em;
+  color: var(--tertiary);
+}
+
+input:focus,
+input.filled,
+textarea:focus,
+textarea.filled {
+  border-bottom: 1px solid var(--tertiary);
+}
+
+button {
+  border: none;
+  color: #f7f7f7;
+  padding: 0.5em 1em;
+  font-size: 1.2em;
+  width: 100%;
+  background-color: #2f3061;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 40px;
+}
+
+button:hover {
+  color: var(--secondary);
 }

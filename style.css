@@ -550,13 +550,14 @@ footer {
   justify-content: space-evenly;
 }
 
-/* About page */
-.about {
+footer.contact,
+footer.about {
   position: fixed;
+  width: 100%;
   bottom: 0;
-  left: 0;
-  right: 0;
 }
+
+/* About page */
 
 .blurb {
   font: 1.2rem/1.5 sans-serif;
@@ -566,4 +567,108 @@ footer {
 
 .blurb p {
   margin-bottom: 10px;
+}
+
+/* Contact styling */
+
+main.contact {
+  height: calc(100vh - 98.5px);
+}
+
+.contact_form {
+  /* height: calc(100vh - 98.5px); */
+  color: var(--dark);
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  max-width: 1100px;
+  margin: auto;
+  position: relative;
+}
+
+.contact_form .title {
+  margin-bottom: 50px;
+}
+
+.contact_form h1 {
+  margin-bottom: 15px;
+}
+
+.contact_form p {
+  line-height: 1.2;
+}
+
+form > div {
+  margin-bottom: 30px;
+}
+
+form {
+  padding-bottom: 3em;
+}
+
+label {
+  position: absolute;
+  left: 1em;
+}
+
+input {
+  height: 25px;
+}
+
+textarea {
+  width: 80%;
+  resize: none;
+  position: relative;
+  top: 20px;
+}
+
+input,
+textarea {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(52, 52, 52, 0.1);
+  padding: 0;
+  font: 1em/1 sans-serif;
+  width: 50%;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+}
+
+label {
+  transition: all 150ms ease-out;
+}
+
+input:focus + label,
+input.filled + label,
+textarea:focus + label,
+textarea.filled + label {
+  transform: translateY(-15px);
+  font-size: 0.8em;
+  color: var(--tertiary);
+}
+
+input:focus,
+input.filled,
+textarea:focus,
+textarea.filled {
+  border-bottom: 1px solid var(--tertiary);
+}
+
+button {
+  border: none;
+  color: #f7f7f7;
+  padding: 0.5em 1em;
+  font-size: 1.2em;
+  width: 100%;
+  background-color: #2f3061;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 40px;
+}
+
+button:hover {
+  color: var(--secondary);
 }

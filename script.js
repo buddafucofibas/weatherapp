@@ -1,5 +1,3 @@
-// location key for columbia MD: 329306
-// api: ***REMOVED***
 
 // utility function to make DOM manipulation a little faster
 const label = (text) => document.querySelector(text);
@@ -9,6 +7,8 @@ const makeDiv = (className) => {
   e.classList.add(className);
   return e;
 };
+
+const API_KEY = config.API_KEY;
 
 // grabbing DOM elements
 const nav = label('nav');
@@ -46,7 +46,7 @@ fiveDayButton.addEventListener('click', function () {
 (async () => {
   resetDisplays();
   const raw = await fetch(
-    `http://dataservice.accuweather.com/locations/v1/US/search?apikey=***REMOVED***&q=columbia%20maryland&language=en-us&details=true`
+    `http://dataservice.accuweather.com/locations/v1/US/search?apikey=${API_KEY}&q=columbia%20maryland&language=en-us&details=true`
   );
   const parsed = await raw.json();
   currentCity = parsed[0];
@@ -54,7 +54,6 @@ fiveDayButton.addEventListener('click', function () {
   city = currentCity.LocalizedName;
   cityDisplayMain.textContent = `${city}, ${state}`;
   key = currentCity.Details.CanonicalLocationKey;
-  console.log(key);
 
   getCurrentWeather();
   getFiveDay();
@@ -70,7 +69,7 @@ async function getLocation(event) {
     const value = search.value;
     search.value = '';
     const raw = await fetch(
-      `http://dataservice.accuweather.com/locations/v1/US/search?apikey=***REMOVED***&q=${value}&language=en-us&details=true`
+      `http://dataservice.accuweather.com/locations/v1/US/search?apikey=${API_KEY}&q=${value}&language=en-us&details=true`
     );
     const parsed = await raw.json();
     currentCity = parsed[0];
@@ -91,7 +90,7 @@ async function getLocation(event) {
 // gets current forecast and updates display
 async function getCurrentWeather() {
   const raw = await fetch(
-    `http://dataservice.accuweather.com/currentconditions/v1/${key}?apikey=***REMOVED***&language=en-us&details=true`
+    `http://dataservice.accuweather.com/currentconditions/v1/${key}?apikey=${API_KEY}&language=en-us&details=true`
   );
   const parsed = await raw.json();
   const currentConditions = parsed[0];
@@ -119,7 +118,7 @@ async function getCurrentWeather() {
 // Gets the hourly forecast for the next twelve hours and creates hour 'cards' displaying a brief look at the upcoming forecast.
 async function getHourly() {
   const raw = await fetch(
-    `http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/${key}?apikey=***REMOVED***&language=en-us`
+    `http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/${key}?apikey=${API_KEY}&language=en-us`
   );
   const parsed = await raw.json();
 
@@ -200,7 +199,7 @@ async function getHourly() {
 // Gets forecast for the next 5 days
 async function getFiveDay() {
   const raw = await fetch(
-    `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}?apikey=***REMOVED***&language=en-us&details=true`
+    `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}?apikey=${API_KEY}&language=en-us&details=true`
   );
   const parsed = await raw.json();
   // console.log(parsed);
